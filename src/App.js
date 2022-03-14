@@ -38,6 +38,13 @@ class App extends Component {
     event.preventDefault()// event 기능 막기 (새로고침 방지)
     let result = await api.createPost({title: this.state.title, content: this.state.content})
     console.log("완료됨!", result.data)
+    this.setState({title: '', content: ''})//초기화
+    this.getPosts()
+  }
+
+  handlingDelete = async (event) => {
+    await api.deletePost(event.target.value)
+    this.getPosts()
   }
 
   render() {
@@ -65,7 +72,10 @@ class App extends Component {
         <div className="ViewSection">
           {
             this.state.results.map((post) =>
-            <PostView key = {post.id} title = {post.title} content = {post.content}/>
+            <div>
+            <PostView key = {post.id} id = {post.id} title = {post.title} content = {post.content}/>
+            <button value = {post.id} onClick = {this.handlingDelete}>삭제하기</button>
+            </div>
             )
           }
           

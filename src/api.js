@@ -14,4 +14,9 @@ export default {
         return axios.post('/posts/', data)
     },
 
+    // 글 제거하기
+    deletePost(id) {
+        return axios.delete('/posts/'+String(id))
+    }
+
 }
